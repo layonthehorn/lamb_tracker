@@ -13,13 +13,13 @@ except ImportError:
 class Sheep:
     """This will contain all the base data that every sheep should have."""
     def __init__(self, name, number, mother, father, dob, gender):
-        self.__name = name
+        self.__name = name.lower()
         self.__number = number
-        self.__mother = mother
-        self.__father = father
+        self.__mother = mother.lower()
+        self.__father = father.lower()
         self.__dob = []
-        self.__gender = gender
-        self.__immune = False
+        self.__gender = gender.lower()
+        self.__immune_note = ""
         for time in dob.split("/"):
             self.__dob.append(int(time))
 
@@ -49,17 +49,12 @@ class Sheep:
         return self.__number
 
     @property
-    def immunity(self):
-        return self.__immune
+    def immunity_notes(self):
+        return self.__immune_note
 
-    @immunity.setter
-    def immunity(self, new):
-        if not isinstance(new, bool):
-            raise ValueError(f"Cannot assign non-boolean value on {self.name}, {self.number}")
-        elif new:
-            self.__immune = new
-        elif self.__immune and not new:
-            raise ValueError(f"Cannot unmark immunizations on {self.name}, {self.number}")
+    @immunity_notes.setter
+    def immunity_notes(self, new):
+        self.immunity_notes += new
 
     def get_age(self):
         current_date = datetime.now()
@@ -75,18 +70,6 @@ class Sheep:
 class Child(Sheep):
     """This contains the various data related to lambs.
     Immunizations, DOB, Age, Gender, size of birth, Mother, and Father."""
-    def __init__(self, name, number, mother, father, dob, gender):
-        Sheep.__init__(self, name, number, mother, father, dob, gender)
-
-
-class Mother(Sheep):
-    """This is to track mothers.
-    Age, DOB, and Average birth number"""
-    def __init__(self, name, number, mother, father, dob, gender):
-        Sheep.__init__(self, name, number, mother, father, dob, gender)
-
-
-class Father(Sheep):
     def __init__(self, name, number, mother, father, dob, gender):
         Sheep.__init__(self, name, number, mother, father, dob, gender)
 
