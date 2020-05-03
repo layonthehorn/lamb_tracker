@@ -5,6 +5,6 @@ import sys
 try:
     import colorama
 except ImportError:
-    print("Failed to import colorama. Check if installing in ENV.")
+    print("Failed to import colorama. Check if installed in ENV.")
     print("pip install colorama")
     sys.exit(1)
